@@ -56,12 +56,12 @@
         }
       }
     }
-  }
 
-  > button {
-    width: fit-content;
-    padding: 0.5rem 1rem;
-    margin: 1rem auto;
-    display: block;
+    > .button {
+      width: fit-content;
+      padding: 0.5rem 1rem;
+      margin: 1rem auto;
+      display: block;
+    }
   }
 }

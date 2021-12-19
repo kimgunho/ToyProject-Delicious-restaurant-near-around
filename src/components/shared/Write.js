@@ -1,16 +1,40 @@
+import { useState, useRef } from 'react';
 import classNames from 'classnames/bind';
+import { doc, setDoc } from 'firebase/firestore';
 
 import styles from './Write.module.scss';
 
+import { database } from '../../firebase';
 import { UseModal } from '../../context/useModal';
 
 const cx = classNames.bind(styles);
 
 function Write() {
+  const [values, setValues] = useState({});
   const { show, setShow } = UseModal();
+  const title = useRef();
 
   const handleHide = () => {
     setShow(false);
+  };
+
+  const onSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      await setDoc(doc(database, 'restaurants', title.current.value), values);
+      console.log('finish');
+      handleHide();
+    } catch (err) {
+      console.log(err.code);
+    }
+  };
+
+  const onChange = (event) => {
+    setValues({
+      ...values,
+      [event.target.name]: event.target.value,
+    });
+    console.log(title.current.value);
   };
 
   return (
@@ -21,44 +45,83 @@ function Write() {
           취소
         </span>
       </h2>
-      <form>
+      <form onSubmit={onSubmit}>
         <ul>
           <li>
             <label>상호명</label>
-            <input type="text" />
+            <input
+              required
+              ref={title}
+              name="title"
+              type="text"
+              onChange={onChange}
+            />
           </li>
           <li>
             <label>기본정보</label>
-            <input type="text" />
+            <input
+              required
+              name="description"
+              type="text"
+              onChange={onChange}
+            />
           </li>
           <li>
             <label>카테고리</label>
-            <input type="text" />
+            <input required name="category" type="text" onChange={onChange} />
           </li>
           <li>
             <label>상세설명</label>
-            <textarea />
+            <textarea name="text" onChange={onChange} />
           </li>
           <li>
             <label>주소</label>
-            <input type="text" />
+            <input name="address" type="text" onChange={onChange} />
           </li>
           <li>
             <label>점수</label>
-            <input type="text" />
+            <p className={cx('list')}>
+              {[1, 2, 3, 4, 5].map((index) => {
+                const star = '⭐️'.repeat(index);
+                return (
+                  <span key={index}>
+                    {star}
+                    <input
+                      name="score"
+                      type="radio"
+                      value={index}
+                      onChange={onChange}
+                    />
+                  </span>
+                );
+              })}
+            </p>
           </li>
           <li>
             <label>배달 플랫폼</label>
-            <input type="text" />
+            <p className={cx('list')}>
+              {['배민', '쿠팡잇츠'].map((platform, index) => {
+                return (
+                  <span key={index}>
+                    {platform}
+                    <input
+                      name="platform"
+                      type="radio"
+                      value={platform}
+                      onChange={onChange}
+                    />
+                  </span>
+                );
+              })}
+            </p>
           </li>
           <li>
-            <label>태그</label>
-            <input type="text" />
+            <label>태그(스페이스로 구분합니다.)</label>
+            <input name="tag" type="text" onChange={onChange} />
           </li>
         </ul>
+        <input type="submit" value="등록하기" className={cx('button')} />
       </form>
-
-      <button>등록하기</button>
     </div>
   );
 }
