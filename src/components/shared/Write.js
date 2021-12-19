@@ -22,7 +22,6 @@ function Write() {
     event.preventDefault();
     try {
       await setDoc(doc(database, 'restaurants', title.current.value), values);
-      console.log('finish');
       handleHide();
     } catch (err) {
       console.log(err.code);
