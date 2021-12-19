@@ -2,13 +2,24 @@ import classNames from 'classnames/bind';
 
 import styles from './Write.module.scss';
 
+import { UseModal } from '../../context/useModal';
+
 const cx = classNames.bind(styles);
 
-function Modal() {
+function Write() {
+  const { show, setShow } = UseModal();
+
+  const handleHide = () => {
+    setShow(false);
+  };
+
   return (
-    <div className={cx('container')}>
+    <div className={cx(['container', { show }])}>
       <h2 className={cx('title')}>
-        맛집을 등록해주세요. <span className={cx('cancel')}>취소</span>
+        맛집을 등록해주세요.{' '}
+        <span onClick={handleHide} className={cx('cancel')}>
+          취소
+        </span>
       </h2>
       <form>
         <ul>
@@ -52,4 +63,4 @@ function Modal() {
   );
 }
 
-export default Modal;
+export default Write;
