@@ -1,0 +1,17 @@
+@import '../common.scss';
+
+.container {
+  margin-top: 1.5rem;
+  padding: 10px;
+  box-sizing: border-box;
+  display: flex;
+
+  > .detail {
+    width: 70%;
+  }
+
+  > .map {
+    width: 30%;
+    background-color: red;
+  }
+}
