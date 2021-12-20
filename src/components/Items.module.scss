@@ -9,4 +9,36 @@
     font-size: 1.125rem;
     padding: 1em 0;
   }
+
+  > .slideBox {
+    .slide {
+      padding: 0.5rem;
+      background-color: #f0f0f0;
+      border-radius: 10px;
+      box-sizing: border-box;
+
+      > ul {
+        > li {
+          font-size: 1rem;
+          padding-bottom: 5px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+
+          > span {
+            white-space: nowrap;
+            margin-right: 5px;
+
+            &::before {
+              content: '#';
+            }
+          }
+        }
+      }
+
+      > button {
+        @include button;
+      }
+    }
+  }
 }
