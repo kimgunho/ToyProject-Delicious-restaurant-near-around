@@ -1,29 +1,56 @@
+import { useEffect, useState } from 'react';
+import { doc, getDoc } from 'firebase/firestore';
 import classNames from 'classnames/bind';
 
 import styles from './Detail.module.scss';
 
+import { UseRestauants } from '../context/useRestaurants';
+import { database } from '../firebase';
+import Map from './Map';
+
 const cx = classNames.bind(styles);
 
 function Detail() {
+  const { restaurantTitle } = UseRestauants();
+  const [detail, setDetail] = useState({});
+
+  useEffect(async () => {
+    if (restaurantTitle !== null) {
+      const docRef = doc(database, 'restaurants', restaurantTitle);
+      const docSnap = await getDoc(docRef);
+
+      setDetail(docSnap.data());
+    }
+  }, [restaurantTitle]);
+
   return (
     <div className={cx('container')}>
-      <div className={cx('detail')}>
-        <h3 className={cx('title')}>title..</h3>
-        <ul className={cx('info')}>
-          <li>간단한 설명</li>
-          <li>산본동 99-12</li>
-          <li>⭐️⭐️⭐️</li>
-          <li>배민, 요기요</li>
-        </ul>
-        <p className={cx('text')}>상세한 정보입니다.</p>
-        <p className={cx('tag')}>
-          <span>#aa</span>
-          <span>#aa</span>
-          <span>#aa</span>
-          <span>#aa</span>
-        </p>
-      </div>
-      <div className={cx('map')}></div>
+      {restaurantTitle !== null ? (
+        <>
+          <div className={cx('detail')}>
+            <h3 className={cx('title')}>{detail.title}</h3>
+            <ul className={cx('info')}>
+              <li>{detail.description}</li>
+              <li>{detail.address}</li>
+              <li>{'⭐️'.repeat(detail.score)}</li>
+              <li>
+                {detail.flatform?.split(' ').map((flatform, index) => (
+                  <span key={index}>{flatform}</span>
+                ))}
+              </li>
+            </ul>
+            <p className={cx('text')}>{detail.text}</p>
+            <p className={cx('tag')}>
+              {detail.tag?.split(' ').map((tag, index) => (
+                <span key={index}>{tag}</span>
+              ))}
+            </p>
+          </div>
+          <Map address={detail.address} title={detail.title} />
+        </>
+      ) : (
+        <p className={cx('notSelect')}>선택된 매장이 없습니다.</p>
+      )}
     </div>
   );
 }
