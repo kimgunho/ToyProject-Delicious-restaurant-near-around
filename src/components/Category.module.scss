@@ -6,5 +6,9 @@
 
   .slide {
     width: auto;
+
+    &.on {
+      color: red;
+    }
   }
 }
