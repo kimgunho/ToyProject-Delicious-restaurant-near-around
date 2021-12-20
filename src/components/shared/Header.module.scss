@@ -6,8 +6,16 @@
   align-items: center;
   padding: 1rem;
   box-sizing: border-box;
+  background-color: $backgroundColor-01;
+  box-shadow: 0 0 10px #ddd;
 
   > .logo {
     font-size: 1rem;
+    color: $pointColor-02;
+    font-weight: 400;
+  }
+
+  > .button {
+    @include button;
   }
 }

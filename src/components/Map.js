@@ -6,8 +6,10 @@ function Map({ address, title }) {
   const mapMark = useRef();
 
   const style = {
-    width: '30%',
+    width: '100%',
     backgroundColor: '#333',
+    minHeight: '100px',
+    marginTop: '10px',
   };
 
   useEffect(() => {

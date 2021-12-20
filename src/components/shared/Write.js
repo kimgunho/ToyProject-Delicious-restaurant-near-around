@@ -12,6 +12,8 @@ const cx = classNames.bind(styles);
 function Write() {
   const [values, setValues] = useState({});
   const { show, setShow } = UseModal();
+  const [scoreIndex, setScoreIndex] = useState(null);
+  const [platformIndex, setPlatformIndex] = useState(null);
   const title = useRef();
 
   const handleHide = () => {
@@ -84,7 +86,16 @@ function Write() {
                 return (
                   <span key={index}>
                     {star}
+                    <label
+                      className={cx([
+                        'label',
+                        { active: scoreIndex === index },
+                      ])}
+                      onClick={() => setScoreIndex(index)}
+                      htmlFor={`score${index}`}
+                    ></label>
                     <input
+                      id={`score${index}`}
                       name="score"
                       type="radio"
                       value={index}
@@ -102,7 +113,16 @@ function Write() {
                 return (
                   <span key={index}>
                     {platform}
+                    <label
+                      className={cx([
+                        'label',
+                        { active: platformIndex === index },
+                      ])}
+                      onClick={() => setPlatformIndex(index)}
+                      htmlFor={`platform${index}`}
+                    ></label>
                     <input
+                      id={`platform${index}`}
                       name="platform"
                       type="radio"
                       value={platform}

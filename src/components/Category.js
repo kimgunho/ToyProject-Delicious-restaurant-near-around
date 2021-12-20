@@ -40,7 +40,6 @@ function Category({ category }) {
       <Swiper
         className={cx('categoryBox')}
         slidesPerView={'auto'}
-        spaceBetween={10}
         onClick={getCategoryKeyword}
       >
         <SwiperSlide

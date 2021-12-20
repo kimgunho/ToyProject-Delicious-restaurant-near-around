@@ -40,20 +40,19 @@ function Items() {
 
       <Category category={category} />
 
-      <Swiper slidesPerView={2} className={cx('slideBox')}>
+      <Swiper spaceBetween={10} slidesPerView={2} className={cx('slideBox')}>
         {restaurants?.map((item) => {
           restaurants.sort((a, b) => b.score - a.score);
           const star = '⭐️'.repeat(item.score);
           return (
-            <SwiperSlide key={item.title}>
+            <SwiperSlide className={cx('slide')} key={item.title}>
               <ul>
-                <li>상호명 : {item.title}</li>
-                <li>기본정보 : {item.description}</li>
-                <li>위치 : {item.address}</li>
-                <li>나의 점수 :{star}</li>
+                <li> {item.title}</li>
+                <li> {item.description}</li>
+                <li> {item.address}</li>
+                <li>{star}</li>
                 {item.tag ? (
                   <li>
-                    태그 :
                     {item.tag.split(' ').map((tag, index) => (
                       <span key={index}>{tag}</span>
                     ))}

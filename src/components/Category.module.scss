@@ -6,9 +6,13 @@
 
   .slide {
     width: auto;
+    padding: 0.3rem;
+    line-height: 1;
 
     &.on {
-      color: red;
+      border-radius: 5px;
+      color: $pointColor-02;
+      background-color: $pointColor-01;
     }
   }
 }
