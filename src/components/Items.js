@@ -14,7 +14,7 @@ import Category from './Category';
 const cx = classNames.bind(styles);
 
 function Items() {
-  const { restaurants, setRestaurants } = UseRestauants();
+  const { restaurants, setRestaurants, setRestaurantTitle } = UseRestauants();
   const [category, setCategory] = useState([]);
 
   useEffect(async () => {
@@ -62,7 +62,9 @@ function Items() {
                   ''
                 )}
               </ul>
-              <button>more</button>
+              <button onClick={() => setRestaurantTitle(item.title)}>
+                more
+              </button>
             </SwiperSlide>
           );
         })}
