@@ -1,0 +1,67 @@
+@import '../../common.scss';
+
+.container {
+  position: fixed;
+  width: calc(100% - 1rem);
+  left: 50%;
+  top: 50%;
+  z-index: 10;
+  transform: translate(-50%, -50%);
+  background-color: #f0f0f0;
+  padding: 1.5rem;
+  box-sizing: border-box;
+  max-height: 90%;
+  overflow-y: scroll;
+  display: none;
+
+  &.show {
+    display: block;
+  }
+
+  > .title {
+    font-size: 1rem;
+    color: #333;
+    padding-bottom: 1rem;
+
+    > .cancel {
+      float: right;
+    }
+  }
+
+  > form {
+    > ul {
+      > li {
+        > label {
+          display: block;
+          padding: 5px 0;
+        }
+        > input {
+          width: 100%;
+          padding: 0.5rem;
+          box-sizing: border-box;
+          color: #333;
+          font-size: 1rem;
+          border: 0;
+          background-color: #ddd;
+        }
+        > textarea {
+          width: 100%;
+          padding: 0.5rem;
+          box-sizing: border-box;
+          color: #333;
+          font-size: 1rem;
+          border: 0;
+          min-height: 150px;
+          background-color: #ddd;
+        }
+      }
+    }
+
+    > .button {
+      width: fit-content;
+      padding: 0.5rem 1rem;
+      margin: 1rem auto;
+      display: block;
+    }
+  }
+}
