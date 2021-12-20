@@ -1,35 +1,65 @@
 import { useState, useEffect } from 'react';
 import classNames from 'classnames/bind';
+import { collection, getDocs } from 'firebase/firestore';
 import { Swiper, SwiperSlide } from 'swiper/react/swiper-react';
 
 import styles from './Category.module.scss';
 import 'swiper/swiper.scss';
 
+import { UseRestauants } from '../context/useRestaurants';
+import { database } from '../firebase';
+
 const cx = classNames.bind(styles);
 
-function Category({ data }) {
-  const [category, setCategory] = useState([]);
+function Category({ category }) {
+  const [activeIndex, setActiveIndex] = useState(null);
+  const [keyword, setKeyword] = useState('');
+  const { setRestaurants } = UseRestauants();
 
-  useEffect(() => {
-    const getAllCategory = data.map(({ category }) => category);
-    const filterCategory = getAllCategory.filter(
-      (item, index) => getAllCategory.indexOf(item) === index,
-    );
-    setCategory(filterCategory);
-  }, []);
+  useEffect(async () => {
+    const querySnapshot = await getDocs(collection(database, 'restaurants'));
+    setRestaurants([]);
+    querySnapshot.forEach((doc) => {
+      if (doc.data().category === keyword) {
+        setRestaurants((prev) => [doc.data(), ...prev]);
+      } else if (keyword === '전체') {
+        setRestaurants((prev) => [doc.data(), ...prev]);
+      }
+    });
+  }, [keyword]);
+
+  const getCategoryKeyword = (event) => {
+    const { clickedSlide } = event;
+    if (clickedSlide !== undefined) {
+      setKeyword(clickedSlide.innerText);
+    }
+  };
 
   return (
-    <Swiper
-      className={cx('categoryBox')}
-      slidesPerView={'auto'}
-      spaceBetween={10}
-    >
-      {category.map((item, index) => (
-        <SwiperSlide className={cx('slide')} key={index}>
-          {item}
+    <>
+      <Swiper
+        className={cx('categoryBox')}
+        slidesPerView={'auto'}
+        spaceBetween={10}
+        onClick={getCategoryKeyword}
+      >
+        <SwiperSlide
+          onClick={() => setActiveIndex(null)}
+          className={cx('slide')}
+        >
+          전체
         </SwiperSlide>
-      ))}
-    </Swiper>
+        {category.map((item, index) => (
+          <SwiperSlide
+            className={cx(['slide', { on: activeIndex === index }])}
+            onClick={() => setActiveIndex(index)}
+            key={index}
+          >
+            {item}
+          </SwiperSlide>
+        ))}
+      </Swiper>
+    </>
   );
 }
 
