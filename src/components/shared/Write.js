@@ -33,7 +33,6 @@ function Write() {
       ...values,
       [event.target.name]: event.target.value,
     });
-    console.log(title.current.value);
   };
 
   return (
