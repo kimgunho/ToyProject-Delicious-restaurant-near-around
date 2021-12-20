@@ -12,6 +12,7 @@ import { database } from '../firebase';
 const cx = classNames.bind(styles);
 
 function Category({ category }) {
+  const [activeIndex, setActiveIndex] = useState(null);
   const [keyword, setKeyword] = useState('');
   const { setRestaurants } = UseRestauants();
 
@@ -41,9 +42,15 @@ function Category({ category }) {
       spaceBetween={10}
       onClick={getCategoryKeyword}
     >
-      <SwiperSlide className={cx('slide')}>전체</SwiperSlide>
+      <SwiperSlide onClick={() => setActiveIndex(null)} className={cx('slide')}>
+        전체
+      </SwiperSlide>
       {category.map((item, index) => (
-        <SwiperSlide className={cx('slide')} key={index}>
+        <SwiperSlide
+          className={cx(['slide', { on: activeIndex === index }])}
+          onClick={() => setActiveIndex(index)}
+          key={index}
+        >
           {item}
         </SwiperSlide>
       ))}
