@@ -42,8 +42,8 @@ function Items() {
 
       <Swiper slidesPerView={2} className={cx('slideBox')}>
         {restaurants?.map((item) => {
+          restaurants.sort((a, b) => b.score - a.score);
           const star = '⭐️'.repeat(item.score);
-
           return (
             <SwiperSlide key={item.title}>
               <ul>
@@ -62,6 +62,7 @@ function Items() {
                   ''
                 )}
               </ul>
+              <button>more</button>
             </SwiperSlide>
           );
         })}

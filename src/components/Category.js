@@ -36,25 +36,30 @@ function Category({ category }) {
   };
 
   return (
-    <Swiper
-      className={cx('categoryBox')}
-      slidesPerView={'auto'}
-      spaceBetween={10}
-      onClick={getCategoryKeyword}
-    >
-      <SwiperSlide onClick={() => setActiveIndex(null)} className={cx('slide')}>
-        전체
-      </SwiperSlide>
-      {category.map((item, index) => (
+    <>
+      <Swiper
+        className={cx('categoryBox')}
+        slidesPerView={'auto'}
+        spaceBetween={10}
+        onClick={getCategoryKeyword}
+      >
         <SwiperSlide
-          className={cx(['slide', { on: activeIndex === index }])}
-          onClick={() => setActiveIndex(index)}
-          key={index}
+          onClick={() => setActiveIndex(null)}
+          className={cx('slide')}
         >
-          {item}
+          전체
         </SwiperSlide>
-      ))}
-    </Swiper>
+        {category.map((item, index) => (
+          <SwiperSlide
+            className={cx(['slide', { on: activeIndex === index }])}
+            onClick={() => setActiveIndex(index)}
+            key={index}
+          >
+            {item}
+          </SwiperSlide>
+        ))}
+      </Swiper>
+    </>
   );
 }
 
