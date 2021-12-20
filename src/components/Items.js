@@ -51,12 +51,16 @@ function Items() {
                 <li>기본정보 : {item.description}</li>
                 <li>위치 : {item.address}</li>
                 <li>나의 점수 :{star}</li>
-                <li>
-                  태그 :
-                  {item.tag?.split(' ').map((tag, index) => (
-                    <span key={index}>{tag}</span>
-                  ))}
-                </li>
+                {item.tag ? (
+                  <li>
+                    태그 :
+                    {item.tag.split(' ').map((tag, index) => (
+                      <span key={index}>{tag}</span>
+                    ))}
+                  </li>
+                ) : (
+                  ''
+                )}
               </ul>
             </SwiperSlide>
           );
