@@ -19,12 +19,13 @@ function Category({ category }) {
   useEffect(async () => {
     const querySnapshot = await getDocs(collection(database, 'restaurants'));
     setRestaurants([]);
+
     querySnapshot.forEach((doc) => {
-      if (doc.data().category === keyword) {
-        setRestaurants((prev) => [doc.data(), ...prev]);
-      } else if (keyword === '전체') {
-        setRestaurants((prev) => [doc.data(), ...prev]);
-      }
+      // if (keyword === doc.data().category) {
+      //   setRestaurants((prev) => [doc.data(), ...prev]);
+      // } else if (keyword === '전체') {
+      //   setRestaurants((prev) => [doc.data(), ...prev]);
+      // }
     });
   }, [keyword]);
 

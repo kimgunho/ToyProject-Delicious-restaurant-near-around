@@ -6,7 +6,7 @@ import styles from './Detail.module.scss';
 
 import { UseRestauants } from '../context/useRestaurants';
 import { database } from '../firebase';
-// import Map from './Map';
+import Map from './Map';
 
 const cx = classNames.bind(styles);
 
@@ -46,7 +46,7 @@ function Detail() {
               ))}
             </p>
           </div>
-          {/* <Map address={detail.address} title={detail.title} /> */}
+          <Map address={detail.address} title={detail.title} />
         </>
       ) : (
         <p className={cx('notSelect')}>선택된 매장이 없습니다.</p>
