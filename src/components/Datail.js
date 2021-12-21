@@ -6,6 +6,7 @@ import styles from './Detail.module.scss';
 
 import { UseRestauants } from '../context/useRestaurants';
 import { database } from '../firebase';
+
 import Map from './Map';
 
 const cx = classNames.bind(styles);

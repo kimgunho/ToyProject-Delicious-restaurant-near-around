@@ -10,7 +10,7 @@ import { UseModal } from '../../context/useModal';
 const cx = classNames.bind(styles);
 
 function Write() {
-  const [values, setValues] = useState({});
+  const [inputValues, setInputValues] = useState({});
   const { show, setShow } = UseModal();
   const [scoreIndex, setScoreIndex] = useState(null);
   const [platformIndex, setPlatformIndex] = useState(null);
@@ -23,16 +23,19 @@ function Write() {
   const onSubmit = async (event) => {
     event.preventDefault();
     try {
-      await setDoc(doc(database, 'restaurants', title.current.value), values);
+      await setDoc(
+        doc(database, 'restaurants', title.current.value),
+        inputValues,
+      );
       handleHide();
-    } catch (err) {
-      console.log(err.code);
+    } catch (error) {
+      console.log(error.code);
     }
   };
 
   const onChange = (event) => {
-    setValues({
-      ...values,
+    setInputValues({
+      ...inputValues,
       [event.target.name]: event.target.value,
     });
   };
@@ -58,7 +61,7 @@ function Write() {
             />
           </li>
           <li>
-            <label>기본정보</label>
+            <label>간략정보</label>
             <input
               required
               name="description"

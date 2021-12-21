@@ -44,7 +44,7 @@ function Map({ address, title }) {
 
         map.setCenter(coords);
       } else {
-        console.log('??');
+        console.log('정보가 정확하지 않습니다.');
       }
     });
   };

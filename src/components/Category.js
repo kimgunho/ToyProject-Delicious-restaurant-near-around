@@ -13,40 +13,37 @@ const cx = classNames.bind(styles);
 
 function Category({ category }) {
   const [activeIndex, setActiveIndex] = useState(null);
-  const [keyword, setKeyword] = useState('');
+  const [categoryKeyword, setCategoryKeyword] = useState('');
   const [allRestaurant, setAllRestaurant] = useState([]);
   const { setRestaurants } = UseRestauants();
 
   useEffect(async () => {
     const querySnapshot = await getDocs(collection(database, 'restaurants'));
     querySnapshot.forEach((doc) =>
-      setAllRestaurant((prev) => [...prev, doc.data()]),
+      setAllRestaurant((prev) => [doc.data(), ...prev]),
     );
   }, []);
 
   useEffect(() => {
-    if (keyword === '전체') {
+    if (categoryKeyword === '전체') {
       setRestaurants(allRestaurant);
       return;
     }
-    console.log(allRestaurant);
     const filterRestaurants = allRestaurant.filter(
-      (doc) => doc.category === keyword,
+      (doc) => doc.category === categoryKeyword,
     );
-    console.log(filterRestaurants);
     setRestaurants(filterRestaurants);
-  }, [keyword]);
+  }, [categoryKeyword]);
 
   const getCategoryKeyword = (event) => {
     const { clickedSlide } = event;
     if (clickedSlide !== undefined) {
-      setKeyword(clickedSlide.innerText);
+      setCategoryKeyword(clickedSlide.innerText);
     }
   };
 
   return (
     <>
-      테스트
       <Swiper
         className={cx('categoryBox')}
         slidesPerView={'auto'}
