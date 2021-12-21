@@ -29,9 +29,11 @@ function Category({ category }) {
       setRestaurants(allRestaurant);
       return;
     }
+    console.log(allRestaurant);
     const filterRestaurants = allRestaurant.filter(
       (doc) => doc.category === keyword,
     );
+    console.log(filterRestaurants);
     setRestaurants(filterRestaurants);
   }, [keyword]);
 

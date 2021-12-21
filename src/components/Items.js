@@ -24,10 +24,12 @@ function Items() {
       querySnapshot.forEach((doc) => {
         setRestaurants((prev) => [doc.data(), ...prev]);
         getAllCategory.push(doc.data().category);
+        console.log(getAllCategory);
       });
       const filterCategory = getAllCategory.filter(
         (item, index) => getAllCategory.indexOf(item) === index,
       );
+      console.log(filterCategory);
       setCategory(filterCategory);
     } catch (error) {
       console.log(error.code);
