@@ -18,9 +18,10 @@ function Category({ category }) {
 
   useEffect(async () => {
     const querySnapshot = await getDocs(collection(database, 'restaurants'));
-    setRestaurants([]);
 
     querySnapshot.forEach((doc) => {
+      setRestaurants([]);
+      console.log(doc.data());
       // if (keyword === doc.data().category) {
       //   setRestaurants((prev) => [doc.data(), ...prev]);
       // } else if (keyword === '전체') {
