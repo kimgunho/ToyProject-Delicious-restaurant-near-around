@@ -14,18 +14,25 @@ const cx = classNames.bind(styles);
 function Category({ category }) {
   const [activeIndex, setActiveIndex] = useState(null);
   const [keyword, setKeyword] = useState('');
+  const [allRestaurant, setAllRestaurant] = useState([]);
   const { setRestaurants } = UseRestauants();
 
   useEffect(async () => {
     const querySnapshot = await getDocs(collection(database, 'restaurants'));
-    setRestaurants([]);
-    querySnapshot.forEach((doc) => {
-      if (keyword === doc.data().category) {
-        setRestaurants((prev) => [doc.data(), ...prev]);
-      } else if (keyword === '전체') {
-        setRestaurants((prev) => [doc.data(), ...prev]);
-      }
-    });
+    querySnapshot.forEach((doc) =>
+      setAllRestaurant((prev) => [...prev, doc.data()]),
+    );
+  }, []);
+
+  useEffect(() => {
+    if (keyword === '전체') {
+      setRestaurants(allRestaurant);
+      return;
+    }
+    const filterRestaurants = allRestaurant.filter(
+      (doc) => doc.category === keyword,
+    );
+    setRestaurants(filterRestaurants);
   }, [keyword]);
 
   const getCategoryKeyword = (event) => {
