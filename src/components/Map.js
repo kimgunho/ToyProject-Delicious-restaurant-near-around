@@ -1,8 +1,7 @@
 import { useRef, useEffect } from 'react';
 
-function Map({ address, title }) {
+function Map({ address }) {
   const { kakao } = window;
-  const restaurantAddress = address;
   const mapMark = useRef();
 
   const style = {
@@ -10,10 +9,14 @@ function Map({ address, title }) {
     backgroundColor: '#333',
     minHeight: '100px',
     marginTop: '10px',
+    color: '#fff',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
   };
 
   useEffect(() => {
-    if (restaurantAddress !== undefined) {
+    if (address !== undefined) {
       getMap();
     }
   }, [address]);
@@ -28,19 +31,14 @@ function Map({ address, title }) {
 
     const geocoder = new kakao.maps.services.Geocoder();
 
-    geocoder.addressSearch(restaurantAddress, function (result, status) {
+    geocoder.addressSearch(address, function (result, status) {
       if (status === kakao.maps.services.Status.OK) {
         const coords = new kakao.maps.LatLng(result[0].y, result[0].x);
 
-        const marker = new kakao.maps.Marker({
+        new kakao.maps.Marker({
           map: map,
           position: coords,
         });
-
-        const infowindow = new kakao.maps.InfoWindow({
-          content: `<p>${title}</p>`,
-        });
-        infowindow.open(map, marker);
 
         map.setCenter(coords);
       } else {
@@ -49,11 +47,7 @@ function Map({ address, title }) {
     });
   };
 
-  return (
-    <div ref={mapMark} style={style} className="map">
-      map
-    </div>
-  );
+  return <div ref={mapMark} style={style} className="map"></div>;
 }
 
 export default Map;

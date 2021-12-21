@@ -47,7 +47,7 @@ function Detail() {
               ))}
             </p>
           </div>
-          <Map address={detail.address} title={detail.title} />
+          <Map address={detail.address} />
         </>
       ) : (
         <p className={cx('notSelect')}>선택된 매장이 없습니다.</p>

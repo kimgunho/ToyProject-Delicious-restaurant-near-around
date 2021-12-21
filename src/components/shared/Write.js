@@ -51,7 +51,7 @@ function Write() {
       <form onSubmit={onSubmit}>
         <ul>
           <li>
-            <label>상호명</label>
+            <label>상호명 *</label>
             <input
               required
               ref={title}
@@ -61,7 +61,7 @@ function Write() {
             />
           </li>
           <li>
-            <label>간략정보</label>
+            <label>간략정보 *</label>
             <input
               required
               name="description"
@@ -70,7 +70,7 @@ function Write() {
             />
           </li>
           <li>
-            <label>카테고리</label>
+            <label>카테고리 *</label>
             <input required name="category" type="text" onChange={onChange} />
           </li>
           <li>
@@ -78,8 +78,8 @@ function Write() {
             <textarea name="text" onChange={onChange} />
           </li>
           <li>
-            <label>주소</label>
-            <input name="address" type="text" onChange={onChange} />
+            <label>주소 *</label>
+            <input required name="address" type="text" onChange={onChange} />
           </li>
           <li>
             <label>점수</label>
