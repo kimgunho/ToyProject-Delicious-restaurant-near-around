@@ -28,6 +28,7 @@ function Write() {
         inputValues,
       );
       handleHide();
+      window.location.href = '/';
     } catch (error) {
       console.log(error.code);
     }
