@@ -36,8 +36,15 @@
         }
       }
 
-      > button {
-        @include button;
+      > .buttons {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+
+        > button {
+          @include button;
+          margin-right: 10px;
+        }
       }
     }
   }

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, getDocs, doc, deleteDoc } from 'firebase/firestore';
+
 import { Swiper, SwiperSlide } from 'swiper/react/swiper-react';
 import classNames from 'classnames/bind';
 
@@ -32,6 +33,11 @@ function Items() {
     }
   }, []);
 
+  const deleteRestaurant = async (id) => {
+    await deleteDoc(doc(database, 'restaurants', id));
+    window.location.href = './';
+  };
+
   return (
     <div className={cx('container')}>
       <h2 className={cx('title')}>오늘은 무엇을 먹을까?</h2>
@@ -58,9 +64,14 @@ function Items() {
                   ''
                 )}
               </ul>
-              <button onClick={() => setRestaurantTitle(item.title)}>
-                more
-              </button>
+              <div className={cx('buttons')}>
+                <button onClick={() => setRestaurantTitle(item.title)}>
+                  상세정보
+                </button>
+                <button onClick={() => deleteRestaurant(item.title)}>
+                  삭제
+                </button>
+              </div>
             </SwiperSlide>
           );
         })}
