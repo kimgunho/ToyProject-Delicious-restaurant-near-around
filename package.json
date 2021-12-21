@@ -1,6 +1,7 @@
 {
   "name": "restaurant",
   "version": "0.1.0",
+  "homepage":"https://toy-project-delicious-restaurant-near-around.vercel.app",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.1",
@@ -16,8 +17,8 @@
     "web-vitals": "^2.1.2"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "react-scripts --openssl-legacy-provider start",
+    "build": "react-scripts --openssl-legacy-provider build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint .",

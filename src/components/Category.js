@@ -44,6 +44,7 @@ function Category({ category }) {
 
   return (
     <>
+      테스트
       <Swiper
         className={cx('categoryBox')}
         slidesPerView={'auto'}
